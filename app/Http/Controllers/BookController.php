@@ -81,4 +81,53 @@ class BookController extends Controller
 
         return redirect('/');
     }
+
+    // =========================================
+    // API
+    // munculin data buku yang udah diinput
+    public function getBook(){
+        $books = Book::all();
+        return $books;
+    }
+
+    // function untuk menambahkan data buku dari postman
+    public function addBook(Request $request){
+        $extension = $request->file('Image')->getClientOriginalExtension();
+        $fileName = $request->Name.'_'.$request->Author.'.'.$extension;
+        $request->file('Image')->storeAs('/public/image', $fileName);
+
+        Book::create([
+            'Name' => $request->Name,
+            'PublicationDate' => $request->PublicationDate,
+            'Stock' => $request->Stock,
+            'Author' => $request->Author,
+            'Category_Id' => $request->Category_Id,
+            'Image' => $fileName,
+        ]);
+
+        return response()->json(["success" => 200]);
+    }
+
+    //function untuk mengupdate buku dari postman berdasarkan id
+    public function updateBook(Request $request, $id){
+        $extension = $request->file('Image')->getClientOriginalExtension();
+        $fileName = $request->Name.'_'.$request->Author.'.'.$extension;
+        $request->file('Image')->storeAs('/public/image', $fileName);
+
+        Book::findOrFail($id)->update([
+            'Name' => $request->Name,
+            'PublicationDate' => $request->PublicationDate,
+            'Stock' => $request->Stock,
+            'Author' => $request->Author,
+            'Image' => $fileName,
+        ]);
+
+        return response()->json(["success" => 200]);
+    }
+
+    // function untuk menghapus buku berdasarkan id
+    public function removeBook($id){
+        Book::destroy($id);
+        return response()->json(["success" => 200]);
+    }
 }

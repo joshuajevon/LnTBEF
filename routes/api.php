@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/books', [BookController::class, 'getBook']);
+
+Route::post('/add-book', [BookController::class, 'addBook']);
+
+Route::post('/update-book/{id}', [BookController::class, 'updateBook']);
+
+Route::delete('/delete-book/{id}', [BookController::class, 'removeBook']);
+
+Route::post('/add-category', [CategoryController::class, 'addCategory']);

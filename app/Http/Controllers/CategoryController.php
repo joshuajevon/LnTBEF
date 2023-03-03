@@ -22,4 +22,13 @@ class CategoryController extends Controller
         ]);
         return redirect('/');
     }
+
+    // ==========================================================================
+    // API
+    public function addCategory(Request $request){
+        Category::create([
+            'CategoryName' => $request->CategoryName,
+        ]);
+        return response()->json(["success" => 200]);
+    }
 }

@@ -44,7 +44,7 @@ class BookController extends Controller
 
     public function show(){
         $books = Book::all();
-        return view('view', compact('books'));
+        return view('welcome', compact('books'));
     }
 
     public function edit($id){

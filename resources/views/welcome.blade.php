@@ -22,6 +22,9 @@
               <li class="nav-item">
                 <a class="nav-link " href="/create-book">Create</a>
               </li>
+
+              {{-- yang bisa lihat admin doang --}}
+              @if(auth()->user()->isAdmin)
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Dropdown
@@ -33,6 +36,8 @@
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
               </li>
+              @endif
+
               <li class="nav-item">
                 <a class="nav-link" href="/create-category">Create Category</a>
               </li>
@@ -68,7 +73,12 @@
     </div>
     @endforeach
 
-
+    <form action="/send-mail" method="POST">
+        @csrf
+        <label for="">Message</label>
+        <input type="text" name="message">
+        <button>Click Me</button>
+    </form>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>

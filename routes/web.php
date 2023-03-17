@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,9 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [BookController::class, 'show']);
+Route::middleware('isAdmin')->group(function(){
+    Route::get('/create-book', [BookController::class, 'createBook']);
+});
 
-Route::get('/create-book', [BookController::class, 'createBook']);
+Route::get('/', [BookController::class, 'show']);
 
 Route::post('store-book', [BookController::class, 'storeBook']);
 
@@ -43,3 +46,5 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::post('/send-mail', [MailController::class, 'sendMail']);

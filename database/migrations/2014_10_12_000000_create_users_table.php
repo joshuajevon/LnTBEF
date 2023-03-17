@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('pob');
             $table->string('gender');
             $table->string('address');
+            $table->boolean('isAdmin')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
